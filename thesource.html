@@ -16,13 +16,19 @@
 </template>
 
 <template name="source">
-  <div class="source-title">{{name}}</div>
+  <div class="source-list-name">{{name}}</div>
 </template>
 
 <template name="mainboard">
-<div class="source-form">
-	<input type="text" id="form-title-input"><br />
-	<textarea rows="10" cols="80" id="form-body-input"></textarea><br />
-	<input type="button" value="submit!!" class="form-submit"><br />
-</div>
+  <div class="source-form">
+    <input type="text" id="form-title-input"><br />
+    <textarea rows="10" cols="80" id="form-body-input"></textarea><br />
+    <input type="button" value="submit!!" class="form-submit"><br />
+  </div>
+  {{> sourceview}}
+</template>
+
+<template name="sourceview">
+  <div class="source-name">{{source_name}}</div>
+  <div class="source-body">{{source_body}}</div>
 </template>

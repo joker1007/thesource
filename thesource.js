@@ -1,8 +1,31 @@
 Sources = new Meteor.Collection("sources");
 
+Session.set("selected_source", null);
+
 if (Meteor.is_client) {
   Template.sideboard.sources = function() {
     return Sources.find({});
+  };
+
+  Template.source.events = {
+    'click': function() {
+      Session.set("selected_source", this._id);
+    }
+  };
+
+  Template.mainboard.selected_source = function() {
+    return Session.get("selected_source");
+  };
+
+  Template.sourceview.source_name = function() {
+    if (Session.get("selected_source"))
+      var source = Sources.findOne(Session.get("selected_source"));
+      return source && source.name;
+  };
+  Template.sourceview.source_body = function() {
+    if (Session.get("selected_source"))
+      var source = Sources.findOne(Session.get("selected_source"));
+      return source && source.body;
   };
 
   Template.mainboard.events = {
@@ -12,6 +35,7 @@ if (Meteor.is_client) {
       Sources.insert({name: name, body: body});
     }
   };
+
 }
 
 if (Meteor.is_server) {
