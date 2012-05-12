@@ -62,31 +62,35 @@ if (Meteor.is_client) {
       $("#form-body-input").val("");
     }
   };
-  
-    Template.sourcebody.events = {
-  	  'click .icon-pencil': function(event) {
-		var linenum = parseInt(event.target.parentNode.getAttribute("data-line"));
-		var comment = {source_id: Session.get("selected_source"), line: linenum};
-		  Session.set("ready_comment", comment);
-		  var html_body = jQuery(Template.commentbody());
-		  html_body.insertAfter($("#line-" + linenum.toString()));
-		}
-	};
 
-    Template.commentbody.events = {
-  	  'click input.btn-primary': function(event) {
-		    alert("test");
-			var commnet_body = $("#comment-body-input").val();
-			console.log(comment_body);
-			
-			var comment = _.extend(comment_body, Session.get("ready_comment"));
-			Comments.insert(comment);
-		}
-		};
+  Template.sourcebody.events = {
+    'click .icon-pencil': function(event) {
+      $(".comment-form").remove();
+      var linenum = parseInt(event.target.parentNode.getAttribute("data-line"));
+      var comment = {source_id: Session.get("selected_source"), line: linenum};
+      Session.set("ready_comment", comment);
+      var fragment = Meteor.ui.render(function(){
+        return Template.commentbody();
+      });
+      $(fragment).insertAfter($("#line-" + linenum.toString()));
+    }
+  };
 
+  Template.commentbody.events = {
+    'click input.comment-submit': function(event) {
+      var comment_body = $("#comment-body-input").val();
+      var comment = _.extend({body: comment_body}, Session.get("ready_comment"));
+      console.log(comment);
+      Comments.insert(comment);
+      $(".comment-form").remove();
+      Session.set("ready_comment", null);
+    },
+    'click input.comment-cancel': function(event) {
+      $(".comment-form").remove();
+      Session.set("ready_comment", null);
+    }
+  };
 
-	
-  
 }
 
 if (Meteor.is_server) {

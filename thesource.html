@@ -15,7 +15,7 @@
       <div class="span2">
         {{> sideboard}}
       </div>
-      <div class="span8">
+      <div class="span10">
         {{> mainboard}}
       </div>
     </div>
@@ -48,7 +48,7 @@
 
 <template name="sourceview">
   {{#if source_body}}
-    <div class="source-name">{{source_name}}</div>
+    <h3 class="source-name">{{source_name}}</h3>
     <div class="source-body">
       {{#each source_body}}
         {{> sourcebody}}
@@ -64,7 +64,8 @@
 <template name="commentbody">
   <div class="comment-form">
 	  <textarea rows="2" cols="120" id="comment-body-input"></textarea><br />
-	  <input type="button" value="submit!!" class="comment-submit btn btn-primary"><br />
+	  <input type="button" value="Submit!!" class="comment-submit btn btn-primary">
+	  <input type="button" value="Cancel" class="comment-cancel btn">
   </div>
 </template>
 

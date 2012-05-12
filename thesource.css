@@ -10,6 +10,9 @@ li {
 
 div.source-body {
   background-color: #eee;
+  overflow-x: auto;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 div.source-line i {
