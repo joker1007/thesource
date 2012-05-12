@@ -72,6 +72,19 @@ if (Meteor.is_client) {
 		  html_body.insertAfter($("#line-" + linenum.toString()));
 		}
 	};
+
+    Template.commentbody.events = {
+  	  'click input.btn-primary': function(event) {
+		    alert("test");
+			var commnet_body = $("#comment-body-input").val();
+			console.log(comment_body);
+			
+			var comment = _.extend(comment_body, Session.get("ready_comment"));
+			Comments.insert(comment);
+		}
+		};
+
+
 	
   
 }
