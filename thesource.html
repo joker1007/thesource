@@ -3,12 +3,29 @@
 </head>
 
 <body>
-{{> sideboard}}
-{{> mainboard}}
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand">ザ・ソースレビュー</a>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="span2">
+        {{> sideboard}}
+      </div>
+      <div class="span8">
+        {{> mainboard}}
+      </div>
+    </div>
+  </div>
 </body>
 
 <template name="sideboard">
-  <a class="back">トップに戻る</a>
+  <h3><a class="back"><i class="icon-home"></i>トップに戻る</a></h3>
+  <hr />
+  <h3>ソースコード一覧</h3>
   <ul class="source-list">
     {{#each sources}}
       {{> source}}
@@ -23,13 +40,15 @@
 <template name="mainboard">
   <div class="source-form">
     <input type="text" id="form-title-input"><br />
-    <textarea rows="10" cols="80" id="form-body-input"></textarea><br />
+    <textarea rows="12" cols="120" id="form-body-input"></textarea><br />
     <input type="button" value="submit!!" class="form-submit"><br />
   </div>
   {{> sourceview}}
 </template>
 
 <template name="sourceview">
-  <div class="source-name">{{source_name}}</div>
-  <div class="source-body">{{source_body}}</div>
+  {{#if source_body}}
+    <div class="source-name">{{source_name}}</div>
+    <pre class="prettyprint source-body" onload="prettyPrint();">{{source_body}}</div>
+  {{/if}}
 </template>

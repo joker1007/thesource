@@ -10,14 +10,14 @@ if (Meteor.is_client) {
   Template.sideboard.events = {
     'click .back': function() {
       Session.set("selected_source", null);
-      $(".source-form").fadeIn();
+      $(".source-form").show();
     }
   };
 
   Template.source.events = {
     'click .source-list-name': function() {
       Session.set("selected_source", this._id);
-      $(".source-form").fadeOut();
+      $(".source-form").hide();
     },
     'click .btn-danger': function() {
       Session.set("selected_source", null);
@@ -37,6 +37,9 @@ if (Meteor.is_client) {
   Template.sourceview.source_body = function() {
     if (Session.get("selected_source"))
       var source = Sources.findOne(Session.get("selected_source"));
+      Meteor.setTimeout(function(){
+        prettyPrint();
+      }, 500);
       return source && source.body;
   };
 
@@ -49,7 +52,6 @@ if (Meteor.is_client) {
       $("#form-body-input").val("");
     }
   };
-
 }
 
 if (Meteor.is_server) {
