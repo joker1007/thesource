@@ -49,6 +49,14 @@
 <template name="sourceview">
   {{#if source_body}}
     <div class="source-name">{{source_name}}</div>
-    <pre class="prettyprint source-body" onload="prettyPrint();">{{source_body}}</div>
+    <div class="source-body">
+      {{#each source_body}}
+        {{> sourcebody}}
+      {{/each}}
+    </div>
   {{/if}}
+</template>
+
+<template name="sourcebody">
+<div id="line-{{num}}">{{{body}}}</div>
 </template>

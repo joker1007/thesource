@@ -7,3 +7,7 @@ body {
 li {
   margin-bottom: 10px;
 }
+
+div.source-body {
+  background-color: #eee;
+}

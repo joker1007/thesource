@@ -37,10 +37,17 @@ if (Meteor.is_client) {
   Template.sourceview.source_body = function() {
     if (Session.get("selected_source"))
       var source = Sources.findOne(Session.get("selected_source"));
-      Meteor.setTimeout(function(){
-        prettyPrint();
-      }, 500);
-      return source && source.body;
+      return source && _.map(source.body.split("\n"), function(line, num) {
+        if (line != "") {
+          line = line.replace(/&/g,'&amp;');
+          line = line.replace(/>/g,'&gt;');
+          line = line.replace(/</g,'&lt;');
+          var body = line.replace(/\s/g, "&nbsp;&nbsp;");
+          return {num: num, body: prettyPrintOne(body)};
+        } else {
+          return {num: num, body: "<br />"};
+        }
+      });
   };
 
   Template.mainboard.events = {
