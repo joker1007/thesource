@@ -8,6 +8,7 @@
 </body>
 
 <template name="sideboard">
+  <a class="back">トップに戻る</a>
   <ul class="source-list">
     {{#each sources}}
       {{> source}}
@@ -16,7 +17,7 @@
 </template>
 
 <template name="source">
-<li class="source-list-name">{{name}} <a class="btn btn-danger">削除</a></li>
+<li><a class="source-list-name">{{name}}</a> <a class="btn btn-danger">削除</a></li>
 </template>
 
 <template name="mainboard">

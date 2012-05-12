@@ -7,9 +7,17 @@ if (Meteor.is_client) {
     return Sources.find({});
   };
 
+  Template.sideboard.events = {
+    'click .back': function() {
+      Session.set("selected_source", null);
+      $(".source-form").fadeIn();
+    }
+  };
+
   Template.source.events = {
     'click .source-list-name': function() {
       Session.set("selected_source", this._id);
+      $(".source-form").fadeOut();
     },
     'click .btn-danger': function() {
       Session.set("selected_source", null);
@@ -37,6 +45,8 @@ if (Meteor.is_client) {
       var name = $("#form-title-input").val();
       var body = $("#form-body-input").val();
       Sources.insert({name: name, body: body});
+      $("#form-title-input").val("");
+      $("#form-body-input").val("");
     }
   };
 
