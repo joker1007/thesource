@@ -51,10 +51,12 @@
 <template name="sourceview">
   {{#if source_body}}
     <h3 class="source-name">{{source_name}}</h3>
-    <div class="source-body">
-      {{#each source_body}}
-        {{> sourcebody}}
-      {{/each}}
+    <div id="contents">
+      <div class="source-body">
+        {{#each source_body}}
+          {{> sourcebody}}
+        {{/each}}
+      </div>
     </div>
   {{/if}}
 </template>

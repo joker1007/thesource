@@ -8,11 +8,45 @@ li {
   margin-bottom: 10px;
 }
 
+td {
+	font-size: 14;
+	font-family: Courier;
+}
+pre {
+	font-size: 14;
+	font-family: Courier;
+}
+
+div#contents {
+  position: relative;
+  z-index: 100;
+}
+
+div#canvas {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+canvas#bitmap {
+}
+
+.abs {
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-size: 14;
+	font-family: Courier;
+  z-index: 10001;
+}
+
 div.source-body {
-  background-color: #eee;
   overflow-x: auto;
   overflow-y: auto;
   margin-bottom: 20px;
+  z-index: 10000;
 }
 
 div.source-line i {
