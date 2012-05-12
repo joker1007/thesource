@@ -1,6 +1,8 @@
 Sources = new Meteor.Collection("sources");
+Comments = new Meteor.Collection("comments");
 
 Session.set("selected_source", null);
+Session.set("ready_comment", null);
 
 if (Meteor.is_client) {
   Template.sideboard.sources = function() {
