@@ -60,6 +60,17 @@ if (Meteor.is_client) {
       $("#form-body-input").val("");
     }
   };
+  
+    Template.sourcebody.events = {
+  	  'click .icon-pencil': function(event) {
+		var linenum = parseInt(event.target.parentNode.getAttribute("data-line"));
+		var comment = {source_id: Session.get("selected_source"), line: linenum};
+		console.log(comment);
+		  return Session.set("selected_line", comment);
+		}
+	};
+	
+  
 }
 
 if (Meteor.is_server) {
