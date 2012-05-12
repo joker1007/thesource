@@ -67,8 +67,9 @@ if (Meteor.is_client) {
   	  'click .icon-pencil': function(event) {
 		var linenum = parseInt(event.target.parentNode.getAttribute("data-line"));
 		var comment = {source_id: Session.get("selected_source"), line: linenum};
-		console.log(comment);
-		  return Session.set("selected_line", comment);
+		  Session.set("ready_comment", comment);
+		  var html_body = jQuery(Template.commentbody());
+		  html_body.insertAfter($("#line-" + linenum.toString()));
 		}
 	};
 	
