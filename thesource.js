@@ -38,6 +38,7 @@ if (Meteor.is_client) {
     if (Session.get("selected_source"))
       var source = Sources.findOne(Session.get("selected_source"));
       return source && _.map(source.body.split("\n"), function(line, num) {
+        num = num + 1;
         if (line != "") {
           line = line.replace(/&/g,'&amp;');
           line = line.replace(/>/g,'&gt;');

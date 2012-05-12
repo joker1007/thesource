@@ -11,3 +11,19 @@ li {
 div.source-body {
   background-color: #eee;
 }
+
+div.source-line i {
+  opacity: 0.2;
+  cursor: pointer;
+}
+div.source-line i:hover {
+  opacity: 1.0;
+}
+
+span.add-comment {
+  text-align: right;
+  width: 4em;
+  display: inline-block;
+  background-color: #999;
+  color: #0088CC;
+}
