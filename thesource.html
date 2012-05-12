@@ -8,15 +8,15 @@
 </body>
 
 <template name="sideboard">
-  <div class="source-list">
+  <ul class="source-list">
     {{#each sources}}
       {{> source}}
     {{/each}}
-  </div>
+  </ul>
 </template>
 
 <template name="source">
-  <div class="source-list-name">{{name}}</div>
+<li class="source-list-name">{{name}} <a class="btn btn-danger">削除</a></li>
 </template>
 
 <template name="mainboard">

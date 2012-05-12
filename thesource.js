@@ -8,8 +8,12 @@ if (Meteor.is_client) {
   };
 
   Template.source.events = {
-    'click': function() {
+    'click .source-list-name': function() {
       Session.set("selected_source", this._id);
+    },
+    'click .btn-danger': function() {
+      Session.set("selected_source", null);
+      Sources.remove(this._id);
     }
   };
 
