@@ -23,6 +23,14 @@ div.source-line i:hover {
   opacity: 1.0;
 }
 
+.source-list li.selected {
+  background-color: #D3D3D3;
+}
+
+.source-list li a.btn-danger {
+  float: right;
+}
+
 span.add-comment {
   text-align: right;
   width: 4em;

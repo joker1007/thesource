@@ -27,6 +27,11 @@ if (Meteor.is_client) {
     }
   };
 
+  Template.source.selected_source = function() {
+    return Session.get("selected_source") === this._id ? "selected" : "";
+  };
+
+
   Template.mainboard.selected_source = function() {
     return Session.get("selected_source");
   };

@@ -1,5 +1,5 @@
 <head>
-  <title>thesource</title>
+  <title>The Source Review</title>
 </head>
 
 <body>
@@ -12,10 +12,10 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="span2">
+      <div class="span3">
         {{> sideboard}}
       </div>
-      <div class="span10">
+      <div class="span9">
         {{> mainboard}}
       </div>
     </div>
@@ -34,14 +34,16 @@
 </template>
 
 <template name="source">
-<li><a class="source-list-name">{{name}}</a> <a class="btn btn-danger">削除</a></li>
+<li class="{{selected_source}}"><a class="source-list-name">{{name}}</a> <a class="btn btn-danger btn-mini"><i class="icon-remove icon-white"></i></a></li>
 </template>
 
 <template name="mainboard">
   <div class="source-form">
+    <label for="form-title-input">名前:</label>
     <input type="text" id="form-title-input"><br />
+    <label for="form-body-input">コード:</label>
     <textarea rows="12" cols="120" id="form-body-input"></textarea><br />
-    <input type="button" value="submit!!" class="form-submit btn btn-primary"><br />
+    <input type="button" value="Submit!!" class="form-submit btn btn-primary"><br />
   </div>
   {{> sourceview}}
 </template>
