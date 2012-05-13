@@ -85,15 +85,14 @@ var AnimationUtil = {};
       return;  // 終了
     }
     var s = div.style;
-    var comment_box = $(div);
 
     // スタイル設定：サイズ関連
-    comment_box.css("font-size", 12);
-    comment_box.css("height", lineHeight + 2);
-    comment_box.css("width", 'auto');  // ★テキスト幅に合わせる。
+    s.fontSize = 12;
+    s.height = (lineHeight + 2);
+    s.width = 'auto';  // ★テキスト幅に合わせる。
 
     // アニメーション開始座標算出
-    var x1 = Math.floor( (lineWidth - comment_box.width()) / 2 );
+    var x1 = Math.floor( (lineWidth - div.offsetWidth) / 2 );
     var y1 = Math.floor( lineHeight * comments[i].line - (lineHeight / 2) );
 
     // アニメーション完了座標算出
@@ -106,29 +105,27 @@ var AnimationUtil = {};
       x2 = 50;
  
     // スタイル設定：位置、デザイン関連
-    comment_box.css("left", x1);
-    comment_box.css("top", y1);
-    comment_box.css("border", "solid 1px");
-    comment_box.css("border-color", "red");
-    comment_box.css("background-color", "#FFCC99");
+    s.left = x1.toString() + "px";
+    s.top = y1.toString() + "px";
+    s.border = "solid 1px";
+    s.borderColor = "red";
+    s.backgroundColor = "#FFCC99";
 
     // 半透明スタイル
-    comment_box.css("filter", "alpha(opacity=80)");
-    comment_box.css("opacity", "0.80");
+    s.opacity = "0.80";
 
-    comment_box.html(getCommentHTML(comments[i]));
+    div.innerHTML = getCommentHTML(comments[i]);
 
     // 線を引く
     drawLine(x1+lineWidth*0.2, y1, x2+lineWidth*0.2, y2);
-    console.log(div.style);
 
     // アニメーション＋次へ
     i++;
     JSTweener.addTween(s, {
       time: 0.2,
       transition: 'easeOutCubic',
-      top: y2,
-      left: x2,
+      top: y2.toString() + "px",
+      left: x2.toString() + "px",
       delay: 0.001,
       onStart: viewComment,
       onStartParams: [comments, i]

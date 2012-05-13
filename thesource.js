@@ -19,13 +19,16 @@ if (Meteor.is_client) {
   Template.source.events = {
     'click .source-list-name': function() {
       var that = this;
+      if (Session.get("selected_source") === this._id) {
+        return null;
+      }
       Session.set("selected_source", this._id);
       $(".source-form").hide();
-      Meteor.setTimeout(function(){
-        AnimationUtil.init();
-        var comments = Comments.find({source_id: that._id}).map(function(elem) {return elem;});
-        AnimationUtil.viewComments(comments);
-      }, 500);
+      Meteor.flush();
+
+      AnimationUtil.init();
+      var comments = Comments.find({source_id: that._id}).map(function(elem) {return elem;});
+      AnimationUtil.viewComments(comments);
     },
     'click .btn-danger': function() {
       Session.set("selected_source", null);
