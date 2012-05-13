@@ -147,22 +147,17 @@ var AnimationUtil = {};
     canvas = document.getElementById("canvas");
 
     // 行数取得
-    lines = $("div.source-line").length;
+    line = $("div.source-line");
 
     var source_body = $(".source-body");
 
-    // 一行あたりの高さ
-    lineHeight = source_body.height() / lines;
-
-    // 幅
-    lineWidth = source_body.width();
 
     // canvas 作成
     var bitmap = document.getElementById("bitmap");
 
     // canvas 解像度設定
     bitmap.setAttribute('width', source_body.width());
-    bitmap.setAttribute('height', source_body.height());
+    bitmap.setAttribute('height', source_body.height() + 200);
 
     // 描画コンテキスト取得 ※サイズがかわるたびに取り直す必要がある
     if (bitmap.getContext) {

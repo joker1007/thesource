@@ -71,6 +71,36 @@ if (Meteor.is_client) {
     return Session.get("source_comments");
   };
 
+  Template.commentbox.style = function() {
+    Meteor.flush();
+    var source_line = $(".source-line");
+    var comment_box = $("#comment-" + this._id);
+    var x1 = Math.floor( (source_line.width() - comment_box.width()) / 2 );
+    var y1 = Math.floor( source_line.height() * this.line - (source_line.height() / 2) );
+    var x2 = Math.floor( x1 - 200 + Math.floor(Math.random() * 400));
+    var y2 = Math.floor( y1 - (4 * source_line.height()) + Math.random() * (8 * source_line.height()) );
+    console.log(x1);
+    console.log(y1);
+    console.log(x2);
+    console.log(y2);
+
+    var context = document.getElementById("bitmap").getContext("2d");
+    context.strokeStyle = "red";
+    context.beginPath();
+    context.lineWidth = 1;
+    context.moveTo(x1, y1);
+    context.lineTo(x2, y2);
+    context.stroke();
+    context.closePath();
+    context.beginPath();
+    context.lineWidth = 2;
+    context.moveTo(x1, y1);
+    context.arc(x1, y1, 5, 0, Math.PI*2, false);
+    context.stroke();
+    context.closePath();
+    return "top: " + y2.toString() + "px; left: " + x2.toString() + "px;";
+  };
+
   Template.mainboard.events = {
     'click .form-submit': function() {
       var name = $("#form-title-input").val();
