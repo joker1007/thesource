@@ -31,7 +31,6 @@ if (Meteor.is_client) {
       var comments = Comments.find({source_id: that._id});
       comments.observe({
         added: function(comment) {
-          console.log(comment);
           var commentbox = Meteor.ui.render(function(){
             return Template.commentbox(comment);
           });
@@ -85,7 +84,6 @@ if (Meteor.is_client) {
   };
 
   function startAnimation(comment) {
-    console.log(comment);
     var source_line = $(".source-line");
     var comment_box = $("#comment-" + comment._id);
     var x1 = Math.floor( (source_line.width() - comment_box.width()) / 2 );
