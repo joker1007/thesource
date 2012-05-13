@@ -58,6 +58,9 @@
           {{> sourcebody}}
         {{/each}}
       </div>
+      {{#each comments}}
+        {{> commentbox}}
+      {{/each}}
     </div>
   {{/if}}
 </template>
@@ -74,3 +77,6 @@
   </div>
 </template>
 
+<template name="commentbox">
+<div id="comment-{{_id}}" class="abs comment">{{body}}</div>
+</template>

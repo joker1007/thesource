@@ -27,8 +27,9 @@ if (Meteor.is_client) {
       Meteor.flush();
 
       AnimationUtil.init();
-      var comments = Comments.find({source_id: that._id}).map(function(elem) {return elem;});
-      AnimationUtil.viewComments(comments);
+
+      var comments = Comments.find({source_id: that._id});
+      Session.set("source_comments", comments);
     },
     'click .btn-danger': function() {
       Session.set("selected_source", null);
@@ -65,6 +66,9 @@ if (Meteor.is_client) {
           return {num: num, body: "<br />"};
         }
       });
+  };
+  Template.sourceview.comments = function() {
+    return Session.get("source_comments");
   };
 
   Template.mainboard.events = {

@@ -105,8 +105,8 @@ var AnimationUtil = {};
       x2 = 50;
  
     // スタイル設定：位置、デザイン関連
-    s.left = x1.toString() + "px";
-    s.top = y1.toString() + "px";
+    s.left = x1;
+    s.top = y1;
     s.border = "solid 1px";
     s.borderColor = "red";
     s.backgroundColor = "#FFCC99";
@@ -117,15 +117,15 @@ var AnimationUtil = {};
     div.innerHTML = getCommentHTML(comments[i]);
 
     // 線を引く
-    drawLine(x1+lineWidth*0.2, y1, x2+lineWidth*0.2, y2);
+    drawLine(x1, y1, x2, y2);
 
     // アニメーション＋次へ
     i++;
     JSTweener.addTween(s, {
       time: 0.2,
       transition: 'easeOutCubic',
-      top: y2.toString() + "px",
-      left: x2.toString() + "px",
+      top: y2,
+      left: x2,
       delay: 0.001,
       onStart: viewComment,
       onStartParams: [comments, i]
@@ -142,11 +142,6 @@ var AnimationUtil = {};
   // TOPページ表示
   function init() {
     var buf='';
-    
-    // div 生成
-    for(i=0; i<DMAX; i++) {
-      $("#contents").append($('<div id="div' + i + '" class="abs"></div>'));
-    }
 
     // エレメント取得
     canvas = document.getElementById("canvas");

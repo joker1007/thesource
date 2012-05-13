@@ -75,3 +75,8 @@ span.add-comment {
   background-color: #999;
   color: #0088CC;
 }
+
+div.comment {
+  border: solid 1px red;
+  background-color: #FFCC99;
+}
