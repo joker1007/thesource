@@ -10,6 +10,7 @@ body {
   background-image: url("logo.png");
   background-repeat: no-repeat;
   background-position: left top;
+  font-family: Courier;
 }
 
 div.container {
@@ -79,7 +80,7 @@ span.add-comment {
   text-align: right;
   width: 4em;
   display: inline-block;
-  background-color: #999;
+  background-color: #ccc;
   color: #0088CC;
 }
 
