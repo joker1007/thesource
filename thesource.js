@@ -29,13 +29,20 @@ if (Meteor.is_client) {
       AnimationUtil.init();
 
       var comments = Comments.find({source_id: that._id});
+      comments.observe({
+        added: function(comment) {
+          console.log(comment);
+          var commentbox = Meteor.ui.render(function(){
+            return Template.commentbox(comment);
+          });
+          document.getElementById("contents").appendChild(commentbox);
+          startAnimation(comment);
+          $.play();
+        }
+      });
+      comments.fetch();
       Session.set("source_comments", comments);
       Meteor.flush();
-
-      comments.forEach(function(comment) {
-        startAnimation(comment);
-      });
-      $.play();
     },
     'click .btn-danger': function() {
       Session.set("selected_source", null);
@@ -78,6 +85,7 @@ if (Meteor.is_client) {
   };
 
   function startAnimation(comment) {
+    console.log(comment);
     var source_line = $(".source-line");
     var comment_box = $("#comment-" + comment._id);
     var x1 = Math.floor( (source_line.width() - comment_box.width()) / 2 );
@@ -155,12 +163,8 @@ if (Meteor.is_client) {
       var comment = _.extend({body: comment_body}, Session.get("ready_comment"));
       var comment_id = Comments.insert(comment);
       _.extend(comment, {_id: comment_id});
-      console.log(comment);
       $(".comment-form").remove();
       Session.set("ready_comment", null);
-      Meteor.flush();
-      startAnimation(comment);
-      $.play();
     },
     'click input.comment-cancel': function(event) {
       $(".comment-form").remove();
