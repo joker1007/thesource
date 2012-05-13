@@ -1,5 +1,10 @@
 /* CSS declarations go here */
 
+html {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   font-size: 16px;
 }
@@ -17,36 +22,34 @@ pre {
 	font-family: Courier;
 }
 
-div#contents {
-  position: relative;
-  z-index: 100;
-}
-
-div#canvas {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-canvas#bitmap {
-}
-
 .abs {
 	position: absolute;
 	left: 0;
 	top: 0;
 	font-size: 14;
 	font-family: Courier;
-  z-index: 10001;
+}
+
+div#contents {
+  position: relative;
+  width: 100%;
+  z-index: 100;
+}
+
+div#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 div.source-body {
   overflow-x: auto;
   overflow-y: auto;
   margin-bottom: 20px;
-  z-index: 10000;
+  width: 100%;
+  height: 100%
+  z-index: 100;
 }
 
 div.source-line i {

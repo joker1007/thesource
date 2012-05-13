@@ -84,6 +84,7 @@ var AnimationUtil = {};
     if (div == undefined) {
       return;  // 終了
     }
+    var s = div.style;
     var comment_box = $(div);
 
     // スタイル設定：サイズ関連
@@ -118,12 +119,12 @@ var AnimationUtil = {};
     comment_box.html(getCommentHTML(comments[i]));
 
     // 線を引く
-    drawLine(x1,y1,x2,y2);
+    drawLine(x1+lineWidth*0.2, y1, x2+lineWidth*0.2, y2);
     console.log(div.style);
 
     // アニメーション＋次へ
     i++;
-    JSTweener.addTween(div.style, {
+    JSTweener.addTween(s, {
       time: 0.2,
       transition: 'easeOutCubic',
       top: y2,
@@ -143,13 +144,12 @@ var AnimationUtil = {};
   //==========================================================
   // TOPページ表示
   function init() {
+    var buf='';
+    
     // div 生成
-    var canvas_block = $('<div id="canvas"></div>');
     for(i=0; i<DMAX; i++) {
       $("#contents").append($('<div id="div' + i + '" class="abs"></div>'));
     }
-
-    $("#contents").append(canvas_block);
 
     // エレメント取得
     canvas = document.getElementById("canvas");
@@ -166,7 +166,6 @@ var AnimationUtil = {};
     lineWidth = source_body.width();
 
     // canvas 作成
-    canvas.innerHTML = '<canvas id="bitmap" style="width:' + source_body.width() + ';height:' + source_body.height() + ';"></canvas>';
     var bitmap = document.getElementById("bitmap");
 
     // canvas 解像度設定

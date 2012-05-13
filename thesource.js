@@ -18,8 +18,14 @@ if (Meteor.is_client) {
 
   Template.source.events = {
     'click .source-list-name': function() {
+      var that = this;
       Session.set("selected_source", this._id);
       $(".source-form").hide();
+      Meteor.setTimeout(function(){
+        AnimationUtil.init();
+        var comments = Comments.find({source_id: that._id}).map(function(elem) {return elem;});
+        AnimationUtil.viewComments(comments);
+      }, 500);
     },
     'click .btn-danger': function() {
       Session.set("selected_source", null);
@@ -89,6 +95,7 @@ if (Meteor.is_client) {
       Comments.insert(comment);
       $(".comment-form").remove();
       Session.set("ready_comment", null);
+      AnimationUtil.viewComments([comment]);
     },
     'click input.comment-cancel': function(event) {
       $(".comment-form").remove();
