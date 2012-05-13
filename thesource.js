@@ -72,7 +72,7 @@ if (Meteor.is_client) {
           line = line.replace(/&/g,'&amp;');
           line = line.replace(/>/g,'&gt;');
           line = line.replace(/</g,'&lt;');
-          var body = line.replace(/\s/g, "&nbsp;&nbsp;");
+          var body = line.replace(/\s/g, "&nbsp;");
           return {num: num, body: prettyPrintOne(body)};
         } else {
           return {num: num, body: "<br />"};
