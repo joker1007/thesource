@@ -19,7 +19,7 @@ if (Meteor.is_client) {
   Template.source.events = {
     'click .source-list-name': function() {
       var that = this;
-      if (Session.get("selected_source") === this._id) {
+      if (Session.equals("selected_source", this._id)) {
         return null;
       }
       Session.set("selected_source", this._id);
@@ -30,6 +30,12 @@ if (Meteor.is_client) {
 
       var comments = Comments.find({source_id: that._id});
       Session.set("source_comments", comments);
+      Meteor.flush();
+
+      comments.forEach(function(comment) {
+        startAnimation(comment);
+      });
+      $.play();
     },
     'click .btn-danger': function() {
       Session.set("selected_source", null);
@@ -71,18 +77,13 @@ if (Meteor.is_client) {
     return Session.get("source_comments");
   };
 
-  Template.commentbox.style = function() {
-    Meteor.flush();
+  function startAnimation(comment) {
     var source_line = $(".source-line");
-    var comment_box = $("#comment-" + this._id);
+    var comment_box = $("#comment-" + comment._id);
     var x1 = Math.floor( (source_line.width() - comment_box.width()) / 2 );
-    var y1 = Math.floor( source_line.height() * this.line - (source_line.height() / 2) );
+    var y1 = Math.floor( source_line.height() * comment.line - (source_line.height() / 2) );
     var x2 = Math.floor( x1 - 200 + Math.floor(Math.random() * 400));
     var y2 = Math.floor( y1 - (4 * source_line.height()) + Math.random() * (8 * source_line.height()) );
-    console.log(x1);
-    console.log(y1);
-    console.log(x2);
-    console.log(y2);
 
     var context = document.getElementById("bitmap").getContext("2d");
     context.strokeStyle = "red";
@@ -98,7 +99,31 @@ if (Meteor.is_client) {
     context.arc(x1, y1, 5, 0, Math.PI*2, false);
     context.stroke();
     context.closePath();
-    return "top: " + y2.toString() + "px; left: " + x2.toString() + "px;";
+
+    comment_box.tween({
+      top: {
+        start: y1,
+        stop: y2,
+        time: 0.001,
+        duration: 0.5,
+        effect: "cubicOut",
+      },
+      left: {
+        start: x1,
+        stop: x2,
+        time: 0.001,
+        duration: 0.5,
+        effect: "cubicOut",
+      }
+    });
+  }
+
+  Template.commentbox.style = function() {
+    var source_line = $(".source-line");
+    var comment_box = $("#comment-" + this._id);
+    var x1 = Math.floor( (source_line.width() - comment_box.width()) / 2 );
+    var y1 = Math.floor( source_line.height() * this.line - (source_line.height() / 2) );
+    return "top: " + y1.toString() + "px; left: " + x1.toString() + "px;";
   };
 
   Template.mainboard.events = {
@@ -128,11 +153,14 @@ if (Meteor.is_client) {
     'click input.comment-submit': function(event) {
       var comment_body = $("#comment-body-input").val();
       var comment = _.extend({body: comment_body}, Session.get("ready_comment"));
+      var comment_id = Comments.insert(comment);
+      _.extend(comment, {_id: comment_id});
       console.log(comment);
-      Comments.insert(comment);
       $(".comment-form").remove();
       Session.set("ready_comment", null);
-      AnimationUtil.viewComments([comment]);
+      Meteor.flush();
+      startAnimation(comment);
+      $.play();
     },
     'click input.comment-cancel': function(event) {
       $(".comment-form").remove();
