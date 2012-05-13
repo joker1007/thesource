@@ -31,12 +31,14 @@ if (Meteor.is_client) {
       var comments = Comments.find({source_id: that._id});
       comments.observe({
         added: function(comment) {
-          var commentbox = Meteor.ui.render(function(){
-            return Template.commentbox(comment);
-          });
-          document.getElementById("contents").appendChild(commentbox);
-          startAnimation(comment);
-          $.play();
+          if (Session.equals("selected_source", comment.source_id)) {
+            var commentbox = Meteor.ui.render(function(){
+              return Template.commentbox(comment);
+            });
+            document.getElementById("contents").appendChild(commentbox);
+            startAnimation(comment);
+            $.play();
+          }
         }
       });
       comments.fetch();
