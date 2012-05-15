@@ -6,6 +6,13 @@ This is realtime interactive code review tool.
 ## Framework
 This project is written by Meteor Framework.
 
+## Install
+```sh
+git clone git://github.com/joker1007/thesource.git
+cd thesource
+meteor
+```
+
 ## License
 The MIT License
 
